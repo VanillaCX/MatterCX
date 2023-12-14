@@ -1,7 +1,29 @@
-# ExpressTemplate
+# MatterCX
 
-1) Clone Repo
-2) Create .env file with following params:
-    EXPRESS_SERVER_PORT=8080
-3) Run
-    > npm install
+.env 
+PORT
+
+Required by dependencies
+
+Identity
+    KEY_VALUT_URL
+    IDENTITY_DATABASE
+
+Query
+    TEST_DATABASE
+    TEST_COLLECTION
+    COSMOS_CONNECTION_STRING
+
+Matter
+    TEST_DATABASE
+    TEST_COLLECTION
+    SESSION_USER_ID ( to be replaced with ID from Database for connected user)
+    MATTER_DATABASE
+
+Store
+    VANILLA_ENV
+    COSMOS_CONNECTION_STRING
+    SESSION_DATABASE
+    SESSION_COLLECTION
+    STORE_SECRET
+    STORE_COOKIE_DOMAIN
