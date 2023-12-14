@@ -1,15 +1,19 @@
 require('dotenv').config();
 
+const path = require('path');
+
+const {StoreCX} = require("@VanillaCX/Store");
 const {ResourceError} = require("@VanillaCX/Errors");
+
 const express = require("express");
 const helmet = require("helmet");
 
 // Entry point routes
-const publicRoute = require("./routes/public");
-const authorisedRoute = require("./routes/authorised");
+const publicRoute = require(path.join(__dirname, 'routes', 'public'));
+const authorisedRoute = require(path.join(__dirname, 'routes', 'authorised'));
 
 // Set port the app listens to
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3010;
 
 // Create app
 const app = express();
@@ -26,24 +30,33 @@ app.set('view engine', 'ejs');
 // Enables static access to filesystem
 app.use('/public', express.static('public'));
 
-// Middleware for all requests
-app.use((req, res, next) => {
-    console.log(`Request at ${Date.now()}`);
+// Mongo DB Session Storage
+app.use(StoreCX.session)
 
+// Parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false }));
+
+// Parse application/json
+app.use(express.json());
+
+// Middleware for all requests
+app.use(async (req, res, next) => {
+    console.log(req.session);
+    
     next();
 })
 
 // Setup entry point routing
-app.use("/me", authorisedRoute)
 app.use("/", publicRoute)
+app.use("/account", authorisedRoute)
 
 // Fallback for un-matched requests
 app.use((req, res) => {
+    // Requested resource doesnt exist. Return a 404
     const resourceErr = new ResourceError(req.originalUrl, 404);
-    console.error(resourceErr)
 
     res.status(resourceErr.status.code)
-       .render("errors/resource", {resourceErr})
+       .render("common/errors/resource", {resourceErr})
 })
 
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
