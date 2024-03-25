@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Content Matters</h1>
+    <% if(authenticated) { %>
+     <%- include("./authenticated/edit-bar.ejs");  -%>
+    <% } %>
+        
+    <h1>Matter isplay</h1>
 </body>
 </html>

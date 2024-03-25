@@ -1,16 +1,11 @@
 require('dotenv').config();
 
-const path = require('path');
-
 const {StoreCX} = require("@VanillaCX/Store");
-const {ResourceError} = require("@VanillaCX/Errors");
 
 const express = require("express");
 const helmet = require("helmet");
 
 // Entry point routes
-const publicRoute = require(path.join(__dirname, 'routes', 'public'));
-const authorisedRoute = require(path.join(__dirname, 'routes', 'authorised'));
 
 // Set port the app listens to
 const port = process.env.PORT || 3010;
@@ -42,20 +37,22 @@ app.use(express.json());
 // Middleware for all requests
 app.use(async (req, res, next) => {
     console.log(req.session);
-    
     next();
 })
 
 // Setup entry point routing
-app.use("/", publicRoute)
-app.use("/account", authorisedRoute)
+
+app.get("/", (res, req) => {
+    console.log("TEST")
+    res.send("Hello")
+})
 
 // Fallback for un-matched requests
 app.use((req, res) => {
     // Requested resource doesnt exist. Return a 404
-    const resourceErr = new ResourceError(req.originalUrl, 404);
+    const resourceErr = "404";
 
-    res.status(resourceErr.status.code)
+    res.status(404)
        .render("common/errors/resource", {resourceErr})
 })
 

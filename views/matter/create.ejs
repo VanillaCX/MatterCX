@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Create Matter</h1>
+    <div>
+        <label for="model_name">Model:</label>
+        <select name="model_name"><option><%= params.model %></option></select>
+        <label for="matter_name">Matter:</label>
+        <input name="matter_name" type="text" value="<%= params.matter %>" />
+    </div>
+</body>
+</html>

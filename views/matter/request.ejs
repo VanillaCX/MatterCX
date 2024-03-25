@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Matter does not exist</h1>
+    <h2>Request creation of <%= params.model %> / <%= params.matter %>:</h2>
+    <form>
+        <label for="user_email">Email</label>
+        <input name="user_email" type="text" value="Enter your email address" />
+        <br>
+        <label for=""message>Message</label>
+        <textarea name="message"></textarea>
+        <br>
+        <button>Submit</button>
+        <br>
+    </form>
+    <h2>Or Login to create yourself</h2>
+    <form>
+        <label for="username">Username</label>
+        <input type="text" name="username" />
+        <br>
+        <label for="password">Password</label>
+        <input type="text" name="password" />
+        <button type="button">Login</button>
+        <button type="button">Forgot Password</button>
+    </form>
+</body>
+</html>
